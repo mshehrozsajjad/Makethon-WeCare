@@ -22,7 +22,7 @@ import logoMini from '../assets/img/logoSmall.png'
 const UploadImage = ({ navigation }) => {
     const [uploading, setUploading] = useState(false) // flag to check if an upload is in progress
     const [uploadProgress, setUploadProgress] = useState(0) // track the progress of upload
-    const [image, setImage] = useState(placeholder) // image selected by user, will have the uri to use to show in image component
+    const [image, setImage] = useState('../assets/img/placeholder.png') // image selected by user, will have the uri to use to show in image component
     const [errmsg, setErrmsg] = useState(null) // to show any error occured
     const [filename, setFilename] = useState(null) // filename of image after uploaded to server
     const [status_camera, requestPermissionCamera] = ImagePicker.useCameraPermissions();
