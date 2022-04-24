@@ -9,14 +9,15 @@ import {
   Dimensions,
   SafeAreaView,
 } from 'react-native';
+import logo from '../assets/img/logo.png'
 
 const { width, height } = Dimensions.get('screen');
 const ITEM_WIDTH = width;
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Image style={styles.mainLogo} source={require('../assets/img/logo.png')} />
+        <Image style={styles.mainLogo} source={logo} />
       </View>
       <View>
         <Text style={styles.mainHeading}>
@@ -29,7 +30,7 @@ const Home = () => {
         </Text>
       </View>
       <View>
-        <TouchableOpacity style={styles.mainButton}>
+        <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('ChooseType')} >
           <Text style={styles.buttonText}> Continue </Text>
         </TouchableOpacity>
       </View>
@@ -46,13 +47,14 @@ const styles = {
     backgroundColor: '#fff',
   },
   mainLogo: {
+    // backgroundColor: 'red',
     width: ITEM_WIDTH * 0.75,
     resizeMode: 'contain',
     marginBottom: height * 0.05
   },
   mainHeading: {
     color: '#313131',
-    fontFamily: 'Montserrat-Black',
+    // fontFamily: 'MontserratBlack',
     fontWeight: 'bold',
     fontSize: 22,
     width: ITEM_WIDTH * 0.75,
@@ -60,7 +62,7 @@ const styles = {
   },
   mainText: {
     color: '#313131',
-    fontFamily: 'Montserrat-Medium',
+    // fontFamily: 'MontserratMedium',
     fontSize: 22,
     width: ITEM_WIDTH * 0.75,
     marginBottom: height * 0.09
@@ -76,7 +78,7 @@ const styles = {
   },
   buttonText: {
     color: '#FFFFFF',
-    fontFamily: 'Montserrat-Medium',
+    // fontFamily: 'MontserratMedium',
     fontSize: 18,
   }
 }

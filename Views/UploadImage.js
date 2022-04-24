@@ -9,20 +9,39 @@ import {
     Dimensions,
     SafeAreaView,
 } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import Axios from 'axios';
 const baseurl = 'https://7a9b435a.ngrok.io'; // url/ip address of your server
 const { width, height } = Dimensions.get('screen');
 const ITEM_WIDTH = width;
-
+import placeholder from '../assets/img/placeholder.png'
+import logoMini from '../assets/img/logoSmall.png'
 const UploadImage = ({ navigation }) => {
     const [uploading, setUploading] = useState(false) // flag to check if an upload is in progress
     const [uploadProgress, setUploadProgress] = useState(0) // track the progress of upload
     const [image, setImage] = useState('') // image selected by user, will have the uri to use to show in image component
     const [errmsg, setErrmsg] = useState('') // to show any error occured
     const [filename, setFilename] = useState('') // filename of image after uploaded to server
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        const pickImage = async () => {
+            // No permissions request is necessary for launching the image library
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
 
+            console.log(result);
+
+            if (!result.cancelled) {
+                setImage(result.uri);
+            }
+        };
+    }
     const handleChooseImage = () => {
         ImagePicker.showImagePicker(
             {
@@ -98,7 +117,7 @@ const UploadImage = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Image style={styles.mainLogo} source={require('../assets/img/logoSmall.png')} />
+                <Image style={styles.mainLogo} source={logoMini} />
             </View>
             <View>
                 <Text style={styles.mainHeading}>
@@ -108,22 +127,18 @@ const UploadImage = ({ navigation }) => {
             <View style={{ position: 'relative' }}>
                 <Image
                     style={styles.image}
-                    source={
-                        image
-                            ? { uri: image.uri }
-                            : require('../assets/img/placeholder.png')
-                    }
+                    source={image ? image.uri : placeholder}
                 />
                 <TouchableOpacity
                     style={styles.uploadButton}
                     disabled={uploading}
-                    onPress={() => handleChooseImage()}
+                    onPress={pickImage}
                 >
                     <Text style={styles.uploadButtonText}> Choose Image </Text>
                 </TouchableOpacity>
             </View>
             <View>
-                <TouchableOpacity style={styles.mainButton}>
+                <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('Result')}>
                     <Text style={styles.buttonText}> Get Results </Text>
                 </TouchableOpacity>
             </View>
@@ -154,7 +169,7 @@ const styles = {
     mainHeading: {
         textAlign: 'center',
         color: '#313131',
-        fontFamily: 'Montserrat-ExtraBold',
+        // fontFamily: 'Montserrat-ExtraBold',
         fontWeight: 'bold',
         fontSize: 22,
         width: ITEM_WIDTH * 0.75,
@@ -175,7 +190,7 @@ const styles = {
     },
     uploadButtonText: {
         color: '#4A65AD',
-        fontFamily: 'Montserrat-Medium',
+        // fontFamily: 'MontserratMedium',
         fontSize: 16,
     },
     mainButton: {
@@ -190,7 +205,7 @@ const styles = {
     },
     buttonText: {
         color: '#FFFFFF',
-        fontFamily: 'Montserrat-Medium',
+        // fontFamily: 'MontserratMedium',
         fontSize: 18,
     },
 }

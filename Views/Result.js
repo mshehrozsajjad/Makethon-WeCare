@@ -17,7 +17,7 @@ const Result = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Image style={styles.mainLogo} source={require('../assets/img/logoSmall.png')} />
+        <Image style={styles.mainLogo} source={{ uri: '../assets/img/logoSmall.png' }} />
       </View>
       <View>
         <Text style={styles.mainHeading}>
@@ -65,7 +65,7 @@ const styles = {
   mainHeading: {
     textAlign: 'center',
     color: '#313131',
-    fontFamily: 'Montserrat-ExtraBold',
+    // fontFamily: 'Montserrat-ExtraBold',
     fontWeight: 'bold',
     fontSize: 31,
     width: ITEM_WIDTH * 0.75,
@@ -97,7 +97,7 @@ const styles = {
     paddingLeft: 30,
     paddingRight: 30,
     color: '#313131',
-    fontFamily: 'Montserrat-Medium',
+    // fontFamily: 'MontserratMedium',
     fontSize: 18,
   },
   mainButton: {
@@ -112,7 +112,7 @@ const styles = {
   },
   buttonText: {
     color: '#FFFFFF',
-    fontFamily: 'Montserrat-Medium',
+    // fontFamily: 'MontserratMedium',
     fontSize: 18,
   },
   outlineButton: {
@@ -129,7 +129,7 @@ const styles = {
   },
   outlineButtonText: {
     color: '#4A65AD',
-    fontFamily: 'Montserrat-Medium',
+    // fontFamily: 'MontserratMedium',
     fontSize: 18,
   },
 }

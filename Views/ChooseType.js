@@ -9,14 +9,15 @@ import {
     Dimensions,
     SafeAreaView,
 } from 'react-native';
+import logo from '../assets/img/logo.png'
 
 const { width, height } = Dimensions.get('screen');
 const ITEM_WIDTH = width;
-const ChooseType = () => {
+const ChooseType = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Image style={styles.mainLogo} source={require('../assets/img/logo.png')} />
+                <Image style={styles.mainLogo} source={logo} />
             </View>
             <View>
                 <Text style={styles.mainHeading}>
@@ -24,7 +25,7 @@ const ChooseType = () => {
                 </Text>
             </View>
             <View>
-                <TouchableOpacity style={styles.mainButton}>
+                <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('UploadImage')}>
                     <Text style={styles.buttonText}> X-Ray </Text>
                 </TouchableOpacity>
             </View>
@@ -58,7 +59,7 @@ const styles = {
     mainHeading: {
         textAlign: 'center',
         color: '#313131',
-        fontFamily: 'Montserrat-ExtraBold',
+        // fontFamily: 'Montserrat-ExtraBold',
         fontWeight: 'bold',
         fontSize: 28,
         width: ITEM_WIDTH * 0.75,
@@ -76,7 +77,7 @@ const styles = {
     },
     buttonText: {
         color: '#FFFFFF',
-        fontFamily: 'Montserrat-Medium',
+        // fontFamily: 'MontserratMedium',
         fontSize: 18,
     },
     disabledButton: {
