@@ -17,19 +17,19 @@ import Axios from 'axios';
 const baseurl = 'https://7a9b435a.ngrok.io'; // url/ip address of your server
 const { width, height } = Dimensions.get('screen');
 const ITEM_WIDTH = width;
-import placeholder from '../assets/img/placeholder.png'
+import myPlaceholder from '../assets/img/placeholder.png'
 import logoMini from '../assets/img/logoSmall.png'
 const UploadImage = ({ navigation }) => {
     const [uploading, setUploading] = useState(false) // flag to check if an upload is in progress
     const [uploadProgress, setUploadProgress] = useState(0) // track the progress of upload
-    const [image, setImage] = useState('../assets/img/placeholder.png') // image selected by user, will have the uri to use to show in image component
+    const [image, setImage] = useState('https://i.imgur.com/whMQeNS.jpeg') // image selected by user, will have the uri to use to show in image component
     const [errmsg, setErrmsg] = useState(null) // to show any error occured
     const [filename, setFilename] = useState(null) // filename of image after uploaded to server
     const [status_camera, requestPermissionCamera] = ImagePicker.useCameraPermissions();
     const [status_roll, requestPermissionRoll] = ImagePicker.useMediaLibraryPermissions();
         // No permissions request is necessary for launching the image library
     const pickImage = async () => {
-        console.log(placeholder);
+       
            
             // No permissions request is necessary for launching the image library
             let result = await ImagePicker.launchImageLibraryAsync({
@@ -136,7 +136,7 @@ const UploadImage = ({ navigation }) => {
                     <Image
                         style={styles.image}
                         // source={image ? image.uri : placeholder}
-                        source={{ uri: image  }} 
+                        source={{  uri:  image  }} 
                     />
                     <TouchableOpacity
                         style={styles.uploadButton}
