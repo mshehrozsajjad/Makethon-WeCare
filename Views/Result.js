@@ -13,7 +13,7 @@ const { width, height } = Dimensions.get('screen');
 const ITEM_WIDTH = width;
 
 const Result = ({ navigation }) => {
-  const [criticalReport, setCriticalReport] = useState(false)
+  const [criticalReport, setCriticalReport] = useState(true)
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -38,7 +38,7 @@ const Result = ({ navigation }) => {
         </View>
         : null}
       <View>
-        <TouchableOpacity style={criticalReport ? styles.outlineButton : styles.mainButton}>
+        <TouchableOpacity style={criticalReport ? styles.outlineButton : styles.mainButton} onPress={() => navigation.navigate('UploadImage')}>
           <Text style={criticalReport ? styles.outlineButtonText : styles.buttonText}> Scan Again </Text>
         </TouchableOpacity>
       </View>

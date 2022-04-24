@@ -8,6 +8,7 @@ import {
     Clipboard,
     Dimensions,
     SafeAreaView,
+    ScrollView
 } from 'react-native';
 // import ImagePicker from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
@@ -21,12 +22,15 @@ import logoMini from '../assets/img/logoSmall.png'
 const UploadImage = ({ navigation }) => {
     const [uploading, setUploading] = useState(false) // flag to check if an upload is in progress
     const [uploadProgress, setUploadProgress] = useState(0) // track the progress of upload
-    const [image, setImage] = useState('') // image selected by user, will have the uri to use to show in image component
-    const [errmsg, setErrmsg] = useState('') // to show any error occured
-    const [filename, setFilename] = useState('') // filename of image after uploaded to server
-    const pickImage = async () => {
+    const [image, setImage] = useState(placeholder) // image selected by user, will have the uri to use to show in image component
+    const [errmsg, setErrmsg] = useState(null) // to show any error occured
+    const [filename, setFilename] = useState(null) // filename of image after uploaded to server
+    const [status_camera, requestPermissionCamera] = ImagePicker.useCameraPermissions();
+    const [status_roll, requestPermissionRoll] = ImagePicker.useMediaLibraryPermissions();
         // No permissions request is necessary for launching the image library
-        const pickImage = async () => {
+    const pickImage = async () => {
+        console.log(placeholder);
+           
             // No permissions request is necessary for launching the image library
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -35,13 +39,15 @@ const UploadImage = ({ navigation }) => {
                 quality: 1,
             });
 
-            console.log(result);
+            //console.log(result);
 
             if (!result.cancelled) {
+                
                 setImage(result.uri);
+                
             }
-        };
-    }
+    };
+  
     const handleChooseImage = () => {
         ImagePicker.showImagePicker(
             {
@@ -115,38 +121,43 @@ const UploadImage = ({ navigation }) => {
             });
     }
     return (
-        <SafeAreaView style={styles.container}>
-            <View>
-                <Image style={styles.mainLogo} source={logoMini} />
-            </View>
-            <View>
-                <Text style={styles.mainHeading}>
-                    Please take a picture of your chest x-ray to proceed
-                </Text>
-            </View>
-            <View style={{ position: 'relative' }}>
-                <Image
-                    style={styles.image}
-                    source={image ? image.uri : placeholder}
-                />
-                <TouchableOpacity
-                    style={styles.uploadButton}
-                    disabled={uploading}
-                    onPress={pickImage}
-                >
-                    <Text style={styles.uploadButtonText}> Choose Image </Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('Result')}>
-                    <Text style={styles.buttonText}> Get Results </Text>
-                </TouchableOpacity>
-            </View>
+        <ScrollView >
+            <SafeAreaView style={styles.container}>
+             
+                <View>
+                    <Image style={styles.mainLogo} source={logoMini} />
+                </View>
+                <View>
+                    <Text style={styles.mainHeading}>
+                        Please take a picture of your chest x-ray to proceed
+                    </Text>
+                </View>
+                <View style={{ position: 'relative' }}>
+                    <Image
+                        style={styles.image}
+                        // source={image ? image.uri : placeholder}
+                        source={{ uri: image  }} 
+                    />
+                    <TouchableOpacity
+                        style={styles.uploadButton}
+                        disabled={uploading}
+                        onPress={pickImage}
+                    >
+                        <Text style={styles.uploadButtonText}> Choose Image </Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('Result')}>
+                        <Text style={styles.buttonText}> Get Results </Text>
+                    </TouchableOpacity>
+                </View>
 
 
-            <View style={{ alignItems: 'center' }}>
-            </View>
-        </SafeAreaView>
+                <View style={{ alignItems: 'center' }}>
+                </View>
+           
+            </SafeAreaView>
+        </ScrollView>
     )
 }
 const styles = {
