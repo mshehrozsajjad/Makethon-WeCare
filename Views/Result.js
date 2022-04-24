@@ -13,7 +13,12 @@ const { width, height } = Dimensions.get('screen');
 const ITEM_WIDTH = width;
 
 const Result = ({ navigation }) => {
-  const [criticalReport, setCriticalReport] = useState(true)
+  const min = 0;
+  const max = 2;
+  const random = Math.floor((Math.random() * (max - min)));
+  console.log(random)
+  const [criticalReport, setCriticalReport] = useState(random);
+  const reportText = criticalReport ? 'The image analysis has found characteristics of Infiltration in the x-ray image.' : 'The image analysis found no abnormalities on the patient.'
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -27,7 +32,7 @@ const Result = ({ navigation }) => {
       <View style={criticalReport ? styles.reportViewCritical : styles.reportView}>
         <Text style={styles.reportText}>
           {/* The image analysis found no abnormalities on the patient. */}
-          The image analysis has found characteristics of (disease) in the x-ray image.
+          {reportText}
         </Text>
       </View>
       {criticalReport ?
